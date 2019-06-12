@@ -1,29 +1,29 @@
-// manacher
-
 class Solution {
 public:
     string longestPalindrome(string s) {
-        int size = s.size();
-        if (size <= 1) return s;
-        int mp[2*size]={0}, mx = 2, id = 1, l=1, li = 1;
-        for(int i=2; i < 2 * size - l; i++){
-            mp[i] = mx > i ? min(mp[2*id - i], mx - i) : 0;
-            int left = (i-mp[i]-1)/2, right = (i+mp[i])/2;
-            while(left >= 0 && right < size) {
-                if(left==right) mp[i]++;
-                else if(s[left] == s[right]) mp[i] = mp[i] + 2;
-                else break;
-                left--; right++;
+        int i, pos, maxRight, maxPoint, maxLen;
+        string p = "#";
+
+        for(i=0; i<s.size(); ++i) {
+            p += s[i];
+            p += '#';
+        }
+        pos = maxRight = maxPoint = maxLen = 0;
+        vector<int> radius(p.size(), 0);
+
+        for(i=0; i<p.size(); ++i) {
+            radius[i] = maxRight>i?min(radius[2*pos-i], maxRight-i):1;
+            while(i+radius[i]<p.size() && i-radius[i]>=0 && p[i+radius[i]]==p[i-radius[i]]) ++ radius[i];
+            if(i+radius[i] > maxRight) {
+                maxRight = i+radius[i];
+                pos = i;
             }
-            if(i+mp[i] > mx){
-                mx = i + mp[i];
-                id  = i;
-            }
-            if(mp[i] > l){
-                l = mp[i];
-                li = i;
+            if(radius[i] > maxLen) {
+                maxLen = radius[i]-1;
+                maxPoint = i;
             }
         }
-        return s.substr((li-l+1)/2, l);
+
+        return s.substr((maxPoint-maxLen)/2, maxLen);
     }
 };
