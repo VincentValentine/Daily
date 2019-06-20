@@ -5,7 +5,7 @@ public:
 
         l = maxV = 0, r = height.size()-1;
         while(l < r) {
-            maxV = max(maxV, (r-l)*min(height[l],height[r]));
+            maxV = max(maxV,(r-l)*min(height[l],height[r]));
             if(height[l] > height[r]) --r;
             else ++l;
         }
