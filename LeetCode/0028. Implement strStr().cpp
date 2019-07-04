@@ -1,9 +1,7 @@
 class Solution {
 public:
     int strStr(string haystack, string needle) {
-        int m = needle.size();
-        const int n = m+1;
-        int next[n];
+        int n = needle.size(), next[n+1];
 
         getNext(needle, next);
         return KMP(haystack, needle, next);
