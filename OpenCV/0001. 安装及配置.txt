@@ -21,6 +21,7 @@
 #include <opencv2/opencv.hpp>
 using namespace std;
 using namespace cv;
+
 int main()
 {
 	// 读取图片（使用图片的绝对路径，参考自己的图所在目录）
@@ -39,5 +40,6 @@ int main()
 	waitKey(0);
 
 	cout << "Hello,world." << endl;
+	
 	return 0;
 }
