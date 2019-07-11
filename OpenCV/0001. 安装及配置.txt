@@ -1,0 +1,42 @@
+1. 参考博客
+    1. https://blog.csdn.net/m0_37360684/article/details/89716481
+    2. https://blog.csdn.net/m0_37360684/article/details/89716881
+
+2. 遇到的坑
+    1. 官网下载速度较慢
+    2. build -> 使用的相关文件，source -> 源代码
+    3. 添加path D:\OpenCV\opencv\build\x64\vc15\bin
+    4. VS配置
+        1. 新建空项目，添加源文件
+        2. 解决方案平台改为x64
+        3. D:\OpenCV\opencv\build\x64\vc15\bin 中的3个dll复制到 C:\Windows\System32
+        4. 属性管理器 Debug | 64 添加新项目属性表
+            1. 通用属性 -> VC++目录 -> 包含目录，选择路径 D:\OpenCV\opencv\build\include 和 D:\OpenCV\opencv\build\include\opencv2
+               库目录添加 D:\OpenCV\opencv\build\x64\vc15\lib
+            2. 通用属性 -> 链接器 -> 输入 -> 附加依赖项，手动输入 opencv_world410d.lib（对应同名dll）
+            
+3. 测试
+  #include <iostream>
+  #include <opencv2/opencv.hpp>
+  using namespace std;
+  using namespace cv;
+  int main()
+  {
+    // 读取图片（使用图片的绝对路径，参考自己的图所在目录）
+    Mat srcImg = imread("D:\\OpenCV\\pic\\guda.jpg");
+    if (srcImg.empty()) {
+      cout << "could not load image..." << endl;
+      return -1;
+    }
+
+    imshow("Test opencv setup", srcImg);
+    // 显示灰度图
+    Mat Gray;
+    cvtColor(srcImg, Gray, 6);
+    imshow("Gray", Gray);
+    // 等待任意按键按下，不添加此语句图片会一闪而过
+    waitKey(0);
+
+    cout << "Hello,world." << endl;
+    return 0;
+  }
