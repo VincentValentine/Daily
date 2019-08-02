@@ -1,9 +1,9 @@
 class Solution {
 public:
     int res = INT_MIN;
+    
     int maxPathSum(TreeNode* root) {
         DFS(root);
-
         return res;
     }
 
